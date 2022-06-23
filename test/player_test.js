@@ -105,7 +105,7 @@ describe('PLAYER METHODS', function () {
       const handler = function () { placeShip(player, ship, coordinates); };
 
       expect(handler).to.throw(Error);
-      expect(handler).to.throw('Please add a direction');
+      expect(handler).to.throw('You left out the direction! I need that for math!');
     })
   });
 });

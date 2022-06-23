@@ -1,10 +1,10 @@
-const checkForShip = require('./ship_methods.js').checkForShip;
+var checkForShip = require('./ship_methods.js').checkForShip;
 
 function validateLocation(player, coordinates) {
-  const x = coordinates[0];
-  const y = coordinates[1];
+  var x = coordinates[0];
+  var y = coordinates[1];
 
-  const spaceAvailable = !checkForShip(player, coordinates);
+  var spaceAvailable = !checkForShip(player, coordinates);
 
   if ((x <= 9 && x >= 0) && (y <= 9 && y >= 0)) {
     return spaceAvailable; // decides whether this valid space is occupied
@@ -14,24 +14,20 @@ function validateLocation(player, coordinates) {
 }
 
 function validateLocations(player, locations) {
-  const validated = locations.map(function (location) {
+  var validated = locations.map(function (location) {
     return validateLocation(player, location);
   });
   return validated.indexOf(false) === -1;
 }
 
 function placeShip(player, ship, startingCoordinates, direction) {
-
-  if (!direction) {
-    throw Error("Please add a direction")
-  }
-
-  const proposedLocations = [];
-  let previousLocation,
+  if (!direction) throw Error('You left out the direction! I need that for math!');
+  var proposedLocations = [];
+  var previousLocation,
     rowNumber,
     columnNumber;
 
-  for (let i = 0; i < ship.size; i++) {
+  for (var i = 0; i < ship.size; i++) {
     previousLocation = proposedLocations[i - 1] || [];
     rowNumber = previousLocation[0];
     columnNumber = previousLocation[1];
@@ -49,6 +45,24 @@ function placeShip(player, ship, startingCoordinates, direction) {
     return false;
   }
 }
+
+function getRandomCoordinates() {
+  var x = Math.floor(Math.random() * 9);
+  var y = Math.floor(Math.random() * 9);
+  return [x, y];
+}
+
+
+function getRandomDirection() {
+  return Math.random() > 0.5
+    ? 'horizontal'
+    : 'vertical';
+}
+
+// fire(player, getRandomCoordinates());
+// placeShip(computerPlayer, computerPlayer.ship[0], getRandomCoordinates(), getRandomDirection());
+
+
 
 module.exports = {
   placeShip: placeShip,
