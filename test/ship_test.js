@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { describe } = require("mocha");
+const { describe, afterEach } = require("mocha");
 
 // describe takes 2 args, string describing all the test, and function wraping together
 describe('checkForShip', function () {
@@ -93,6 +93,15 @@ describe('fire', function () {
                 }
             ]
         };
+    })
+
+    // executed at the end of the suite
+    after(function () {
+        console.log('entire test suite completed');
+    })
+    // executed at the end of each test
+    afterEach(function () {
+        console.log('one unit test completed');
     })
 
     it('should NOT damage a ship at if player guesses wrong coordinate', function () {
